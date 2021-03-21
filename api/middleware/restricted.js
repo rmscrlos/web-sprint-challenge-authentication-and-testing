@@ -1,6 +1,32 @@
-module.exports = (req, res, next) => {
-  next();
-  /*
+const jwt = require('jsonwebtoken');
+
+module.exports = async (req, res, next) => {
+	try {
+		const token = req.cookies.token;
+
+		if (!token) {
+			return res.status(401).json({
+				message: 'Token required.'
+			});
+		}
+
+		jwt.verify(token, provess.env.JWT_SECRET, (err, decoded) => {
+			if (err) {
+				return res.status(401).json({
+					message: 'Token invalid.'
+				});
+			}
+
+			req.token = decoded;
+
+			next();
+		});
+
+		next();
+	} catch (err) {
+		next(err);
+	}
+	/*
     IMPLEMENT
 
     1- On valid token in the Authorization header, call next.

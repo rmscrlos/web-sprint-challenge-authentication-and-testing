@@ -5,6 +5,10 @@ const find = () => {
 	return db('users').select('user_id', 'username');
 };
 
+const findBy = filter => {
+	return db('users').select('user_id', 'username', 'password').where(filter);
+};
+
 // find user by ID
 const findById = id => {
 	return db('users').select('user_id', 'username').where({ id }).first();
@@ -18,6 +22,7 @@ const add = async user => {
 
 module.exports = {
 	find,
+	findBy,
 	findById,
 	add
 };
