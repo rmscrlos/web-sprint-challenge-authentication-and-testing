@@ -2,16 +2,16 @@ const db = require('../../data/dbConfig');
 
 // find all users
 const find = () => {
-	return db('users').select('user_id', 'username');
+	return db('users').select('id', 'username');
 };
 
 const findBy = filter => {
-	return db('users').select('user_id', 'username', 'password').where(filter);
+	return db('users').select('id', 'username', 'password').where(filter);
 };
 
 // find user by ID
 const findById = id => {
-	return db('users').select('user_id', 'username').where({ id }).first();
+	return db('users').select('id', 'username', 'password').where({ id }).first();
 };
 
 // add user

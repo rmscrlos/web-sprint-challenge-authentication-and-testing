@@ -30,7 +30,7 @@ const checkUsername = async (req, res, next) => {
 };
 
 // checks if user exists
-const userExists = async (req, res, next) => {
+const userExists = () => async (req, res, next) => {
 	try {
 		const { username, password } = req.body;
 		const user = await Users.findBy({ username }).first();

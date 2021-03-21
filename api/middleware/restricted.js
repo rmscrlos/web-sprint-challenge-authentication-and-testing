@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../secrets');
 
 module.exports = async (req, res, next) => {
 	try {
@@ -10,7 +11,7 @@ module.exports = async (req, res, next) => {
 			});
 		}
 
-		jwt.verify(token, provess.env.JWT_SECRET, (err, decoded) => {
+		jwt.verify(token, process.env.SECRET, (err, decoded) => {
 			if (err) {
 				return res.status(401).json({
 					message: 'Token invalid.'

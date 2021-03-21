@@ -1,3 +1,4 @@
+const JWT_SECRET = require('../secrets/index');
 const router = require('express').Router();
 const Users = require('./user-model');
 const bcrypt = require('bcryptjs');
@@ -44,7 +45,7 @@ router.post('/register', checkBody, checkUsername, async (req, res, next) => {
 	}
 });
 
-router.post('/login', checkBody, userExists, async (req, res, next) => {
+router.post('/login', checkBody, userExists(), async (req, res, next) => {
 	/*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -69,20 +70,20 @@ router.post('/login', checkBody, userExists, async (req, res, next) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 	try {
-		const { username, password } = req.body;
+		const { username } = req.body;
 		const user = await Users.findBy({ username }).first();
 
 		const token = jwt.sign(
 			{
-				user_id: user.user_id,
+				userId: user.id,
 				username: user.username
 			},
-			process.env.JWT_SECRET
+			process.env.SECRET
 		);
 
 		res.cookie('token', token);
 		res.json({
-			message: `Welcome, ${user.name}`,
+			message: `Welcome, ${user.username}`,
 			token: `${token}`
 		});
 	} catch (err) {
