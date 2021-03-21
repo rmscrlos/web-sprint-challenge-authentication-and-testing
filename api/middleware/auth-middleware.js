@@ -6,7 +6,7 @@ const checkBody = (req, res, next) => {
 	const { username, password } = req.body;
 	if (!username || !password) {
 		return res.status(401).json({
-			message: 'Username and password required.'
+			message: 'username and password required'
 		});
 	}
 	next();
@@ -20,7 +20,7 @@ const checkUsername = async (req, res, next) => {
 
 		if (user) {
 			return res.status(409).json({
-				message: 'Username taken.'
+				message: 'username taken'
 			});
 		}
 		next();
@@ -39,7 +39,7 @@ const userExists = () => async (req, res, next) => {
 
 		if (!user || !passwordValid) {
 			return res.status(401).json({
-				message: 'Invalid Credentials'
+				message: 'invalid credentials'
 			});
 		}
 		next();
