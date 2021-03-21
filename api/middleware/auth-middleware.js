@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const checkBody = (req, res, next) => {
 	const { username, password } = req.body;
 	if (!username || !password) {
-		res.status(400).json({
+		return res.status(401).json({
 			message: 'Username and password required.'
 		});
 	}

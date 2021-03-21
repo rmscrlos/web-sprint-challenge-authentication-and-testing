@@ -1,4 +1,3 @@
-const JWT_SECRET = require('../secrets/index');
 const router = require('express').Router();
 const Users = require('./user-model');
 const bcrypt = require('bcryptjs');
@@ -72,6 +71,7 @@ router.post('/login', checkBody, userExists(), async (req, res, next) => {
 	try {
 		const { username } = req.body;
 		const user = await Users.findBy({ username }).first();
+		console.log(user.id);
 
 		const token = jwt.sign(
 			{
